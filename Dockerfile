@@ -1,8 +1,8 @@
 # https://hub.docker.com/_/microsoft-dotnet
 # https://github.com/dotnet/dotnet-docker/tree/main/samples/dotnetapp
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 # ubuntu-arm64
-#FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
+#FROM mcr.microsoft.com/dotnet/sdk:7.0-focal AS build
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
@@ -19,8 +19,8 @@ RUN dotnet publish ConsoleAppLecture -c release -o /app --no-restore
 #RUN dotnet publish ConsoleAppLecture -c release -o /app --no-restore --self-contained --runtime linux-arm64
 
 # final stage, create image
-FROM mcr.microsoft.com/dotnet/runtime:6.0
-#FROM mcr.microsoft.com/dotnet/runtime:6.0-focal-arm64v8
+FROM mcr.microsoft.com/dotnet/runtime:7.0
+#FROM mcr.microsoft.com/dotnet/runtime:7.0-focal-arm64v8
 WORKDIR /app
 COPY --from=build /app .
 ENTRYPOINT ["dotnet", "ConsoleAppLecture.dll"]
