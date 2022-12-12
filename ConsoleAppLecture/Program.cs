@@ -43,7 +43,7 @@ class Program
         // Set up handlers
         _mqttClient.ApplicationMessageReceivedAsync += MqttOnNewMessageAsync;
         _mqttClient.ConnectedAsync += MqttOnConnectedAsync;
-        _mqttClient.DisconnectedAsync += MqttOnDisconnected;
+        _mqttClient.DisconnectedAsync += MqttOnDisconnectedAsync;
         _mqttClient.ConnectingFailedAsync += MqttConnectingFailedAsync;
 
         var topics = new List<MqttTopicFilter>();
@@ -84,7 +84,7 @@ class Program
         Console.WriteLine($"MQTTnet Client -> Connected with result: {eArg.ConnectResult.ResultCode}");
         return Task.CompletedTask;
     }
-    private static Task MqttOnDisconnected(MqttClientDisconnectedEventArgs eArg)
+    private static Task MqttOnDisconnectedAsync(MqttClientDisconnectedEventArgs eArg)
     {
         Console.WriteLine($"MQTTnet Client -> Connection lost! Reason: {eArg.Reason}");
         return Task.CompletedTask;
